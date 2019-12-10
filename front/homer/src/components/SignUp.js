@@ -28,6 +28,14 @@ class SignUp extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     console.log("A user was submited", this.state)
+    fetch("/auth/signup",
+      {
+        method: 'POST',
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(this.state),
+      })
   }
 
   render() {
