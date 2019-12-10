@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, TextField } from '@material-ui/core';
 
 class SignUp extends Component {
 
@@ -45,40 +46,57 @@ class SignUp extends Component {
   }
 
   render() {
+
     return (
       <form onSubmit={(e) => this.handleSubmit(e)}>
         <h1>
           {JSON.stringify(this.state, 1, 1)}
         </h1>
-        <input
+        <TextField
           type="email"
           name="email"
           placeholder="mon@email.com"
           value={this.state.email}
           onChange={(e) => this.updateEmailField(e)}
+          rows="4"
+          defaultValue="Default Value"
+          margin="normal"
+          variant="filled"
         />
-        <input
+        <TextField
           type="password"
           name="password"
           placeholder="password"
           value={this.state.password}
           onChange={(e) => this.updatePasswordField(e)}
+          rows="4"
+          defaultValue="Default Value"
+          margin="normal"
+          variant="filled"
         />
-        <input
+        <TextField
           type="text"
           name="name"
           placeholder="name"
           value={this.state.name}
           onChange={(e) => this.updateNameField(e)}
+          rows="4"
+          defaultValue="Default Value"
+          margin="normal"
+          variant="filled"
         />
-        <input
+        <TextField
           type="text"
           name="lastname"
           placeholder="lastname"
           value={this.state.lastname}
           onChange={(e) => this.updateLastnameField(e)}
+          rows="4"
+          defaultValue="Default Value"
+          margin="normal"
+          variant="filled"
         />
-        <input type="submit" value="Envoyer" />
+        <Button type="submit" value="Envoyer" variant="contained" color="primary">Envoyer</Button>
       </form>
     );
   }
