@@ -6,7 +6,8 @@ class SignUp extends Component {
     email: "mon@email.com",
     password: "password",
     name: "name",
-    lastname: "lastname"
+    lastname: "lastname",
+    flash: "cool"
   }
 
   updateEmailField = (e) => {
@@ -36,6 +37,11 @@ class SignUp extends Component {
         }),
         body: JSON.stringify(this.state),
       })
+      .then(res => res.json())
+      .then(
+        res => this.setState({ "flash": res.flash }),
+        err => this.setState({ "flash": err.flash })
+      )
   }
 
   render() {
