@@ -4,39 +4,50 @@ import { Button, TextField } from '@material-ui/core';
 class SignUp extends Component {
 
   state = {
-    email: "mon@email.com",
-    password: "password",
-    name: "name",
-    lastname: "lastname",
+    formSubmit: {
+      email: "mon@email.com",
+      password: "password",
+      name: "name",
+      lastname: "lastname",
+    },
     flash: "cool"
   }
 
   updateEmailField = (e) => {
-    this.setState({ email: e.target.value })
+    let formSubmit = {...this.state.formSubmit}
+    formSubmit.email = e.target.value;
+    this.setState({formSubmit})
   }
 
   updatePasswordField = (e) => {
-    this.setState({ password: e.target.value })
+    let formSubmit = {...this.state.formSubmit}
+    formSubmit.password = e.target.value;
+    this.setState({formSubmit})
   }
 
   updateNameField = (e) => {
-    this.setState({ name: e.target.value })
+    let formSubmit = {...this.state.formSubmit}
+    formSubmit.name = e.target.value;
+    this.setState({formSubmit})
   }
 
   updateLastnameField = (e) => {
-    this.setState({ lastname: e.target.value })
+    let formSubmit = {...this.state.formSubmit}
+    formSubmit.lastname = e.target.value;
+    this.setState({formSubmit})
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log("A user was submited", this.state)
+    let formSubmit = {...this.state.formSubmit}
+    console.log("A user was submited", formSubmit)
     fetch("/auth/signup",
       {
         method: 'POST',
         headers: new Headers({
           'Content-Type': 'application/json'
         }),
-        body: JSON.stringify(this.state),
+        body: JSON.stringify(this.state.formSubmit),
       })
       .then(res => res.json())
       .then(
@@ -50,53 +61,49 @@ class SignUp extends Component {
     return (
       <form onSubmit={(e) => this.handleSubmit(e)}>
         <h1>
-          {JSON.stringify(this.state, 1, 1)}
+          {JSON.stringify(this.state.formSubmit)}
         </h1>
         <TextField
           type="email"
           name="email"
-          placeholder="mon@email.com"
-          value={this.state.email}
+          defaultValue="mon@email.com"
+          value={this.state.formSubmit.email}
           onChange={(e) => this.updateEmailField(e)}
           rows="4"
-          defaultValue="Default Value"
           margin="normal"
           variant="filled"
         />
         <TextField
           type="password"
           name="password"
-          placeholder="password"
-          value={this.state.password}
+          defaultValue="password"
+          value={this.state.formSubmit.password}
           onChange={(e) => this.updatePasswordField(e)}
           rows="4"
-          defaultValue="Default Value"
           margin="normal"
           variant="filled"
         />
         <TextField
           type="text"
           name="name"
-          placeholder="name"
-          value={this.state.name}
+          defaultValue="name"
+          value={this.state.formSubmit.name}
           onChange={(e) => this.updateNameField(e)}
           rows="4"
-          defaultValue="Default Value"
           margin="normal"
           variant="filled"
         />
         <TextField
           type="text"
           name="lastname"
-          placeholder="lastname"
-          value={this.state.lastname}
+          defaultValue="lastname"
+          value={this.state.formSubmit.lastname}
           onChange={(e) => this.updateLastnameField(e)}
           rows="4"
-          defaultValue="Default Value"
           margin="normal"
           variant="filled"
         />
-        <Button type="submit" value="Envoyer" variant="contained" color="primary">Envoyer</Button>
+        <Button type="submit" value="Envoyer" variant="contained" color="primary" >Envoyer</Button>
       </form>
     );
   }
