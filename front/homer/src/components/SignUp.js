@@ -1,74 +1,43 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import axios from "axios";
 import { Button, TextField } from '@material-ui/core';
 
-class SignUp extends Component {
+const SignUp = () => {
+  const [email, setEmail] = useState("mon@email.com");
+  const [password, setPassword] = useState("password");
+  const [name, setName] = useState("name");
+  const [lastname, setLastname] = useState("lastname");
+  const [flash, setFlash] = useState("");
 
-  state = {
-    formSubmit: {
-      email: "mon@email.com",
-      password: "password",
-      name: "name",
-      lastname: "lastname",
-    },
-    flash: "cool"
-  }
+  const updateEmailField = (e) => { setEmail(e.target.value) }
+  const updatePasswordField = (e) => { setPassword(e.target.value) }
+  const updateNameField = (e) => { setName(e.target.value) }
+  const updateLastnameField = (e) => { setLastname(e.target.value) }
 
-  updateEmailField = (e) => {
-    let formSubmit = {...this.state.formSubmit}
-    formSubmit.email = e.target.value;
-    this.setState({formSubmit})
-  }
-
-  updatePasswordField = (e) => {
-    let formSubmit = {...this.state.formSubmit}
-    formSubmit.password = e.target.value;
-    this.setState({formSubmit})
-  }
-
-  updateNameField = (e) => {
-    let formSubmit = {...this.state.formSubmit}
-    formSubmit.name = e.target.value;
-    this.setState({formSubmit})
-  }
-
-  updateLastnameField = (e) => {
-    let formSubmit = {...this.state.formSubmit}
-    formSubmit.lastname = e.target.value;
-    this.setState({formSubmit})
-  }
-
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    let formSubmit = {...this.state.formSubmit}
-    console.log("A user was submited", formSubmit)
-    fetch("/auth/signup",
-      {
-        method: 'POST',
-        headers: new Headers({
-          'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify(this.state.formSubmit),
-      })
-      .then(res => res.json())
+    const donnee = { email, password, name, lastname }
+    console.log(donnee)
+    axios
+      .post('/auth/signup', donnee)
+      .then(res => res.data)
       .then(
-        res => this.setState({ "flash": res.flash }),
-        err => this.setState({ "flash": err.flash })
+        data => setFlash(data.flash),
       )
   }
 
-  render() {
-
-    return (
-      <form onSubmit={(e) => this.handleSubmit(e)}>
+  return (
+    <>    
+    {console.log(flash)}
+      <form onSubmit={handleSubmit}>
         <h1>
-          {JSON.stringify(this.state.formSubmit)}
+          {JSON.stringify({email, password, name, lastname})}
         </h1>
         <TextField
           type="email"
           name="email"
-          defaultValue="mon@email.com"
-          value={this.state.formSubmit.email}
-          onChange={(e) => this.updateEmailField(e)}
+          value={email}
+          onChange={(e) => updateEmailField(e)}
           rows="4"
           margin="normal"
           variant="filled"
@@ -76,9 +45,8 @@ class SignUp extends Component {
         <TextField
           type="password"
           name="password"
-          defaultValue="password"
-          value={this.state.formSubmit.password}
-          onChange={(e) => this.updatePasswordField(e)}
+          value={password}
+          onChange={(e) => updatePasswordField(e)}
           rows="4"
           margin="normal"
           variant="filled"
@@ -86,9 +54,8 @@ class SignUp extends Component {
         <TextField
           type="text"
           name="name"
-          defaultValue="name"
-          value={this.state.formSubmit.name}
-          onChange={(e) => this.updateNameField(e)}
+          value={name}
+          onChange={(e) => updateNameField(e)}
           rows="4"
           margin="normal"
           variant="filled"
@@ -96,17 +63,16 @@ class SignUp extends Component {
         <TextField
           type="text"
           name="lastname"
-          defaultValue="lastname"
-          value={this.state.formSubmit.lastname}
-          onChange={(e) => this.updateLastnameField(e)}
+          value={lastname}
+          onChange={(e) => updateLastnameField(e)}
           rows="4"
           margin="normal"
           variant="filled"
         />
         <Button type="submit" value="Envoyer" variant="contained" color="primary" >Envoyer</Button>
       </form>
-    );
-  }
+    </>
+  );
 }
 
 export default SignUp
