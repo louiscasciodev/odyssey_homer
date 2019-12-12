@@ -21,9 +21,9 @@ router.post('/signup', (req, res, next) => {
   const formData = req.body;
   connection.query('INSERT INTO users SET ?', formData, (err, results) => {
     if (err)
-      res.status(500).json({ flash: err.message });
+      res.json({ flash: err.message }).status(500);
     else
-      res.status(200).json({ flash: "User has been signed up !" });
+      res.json({ flash: "User has been signed up !" }).status(200);
   })
 });
 
