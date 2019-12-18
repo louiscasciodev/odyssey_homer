@@ -1,0 +1,11 @@
+.form-signup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  padding: 40px;
+}
+
+h6{
+  overflow-wrap: break-word;
+}
