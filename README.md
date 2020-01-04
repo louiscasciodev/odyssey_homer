@@ -1,5 +1,5 @@
 # odyssey_homer
 
-**odyssey_homer**
+**Exercice**
 
-construction d'une application web/mobile fonctionnelle se basant sur les technologies React, Node, Sql/NoSQL principalement.
+Construction d'une application web/mobile fonctionnelle se basant sur les technologies React, Node, Sql/NoSQL principalement.
